@@ -11,6 +11,7 @@
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.0",
+        "nesbot/carbon": "*",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.26",
         "symfony/asset": "7.0.*",
@@ -38,10 +39,14 @@
         "symfony/string": "7.0.*",
         "symfony/translation": "7.0.*",
         "symfony/twig-bundle": "7.0.*",
+        "symfony/uid": "7.0.*",
         "symfony/ux-turbo": "^2.15",
         "symfony/validator": "7.0.*",
         "symfony/web-link": "7.0.*",
         "symfony/yaml": "7.0.*",
+        "symfonycasts/tailwind-bundle": "^0.5.1",
+        "symplify/config-transformer": "^12.3",
+        "tales-from-a-dev/flowbite-bundle": "^0.4.1",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
     },
@@ -74,6 +79,12 @@
         "symfony/polyfill-php82": "*"
     },
     "scripts": {
+        "rector": "vendor/bin/rector p --ansi",
+        "rector-dry": "vendor/bin/rector p --dry-run --ansi",
+        "phpstan": "php -d memory_limit=256M vendor/bin/phpstan analyze",
+        "check-cs": "vendor/bin/ecs check --ansi",
+        "fix-cs": "vendor/bin/ecs check --fix --ansi",
+        "test": "vendor/bin/phpunit",
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd",
@@ -96,13 +107,16 @@
         }
     },
     "require-dev": {
+        "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^9.5",
+        "rector/rector": "^1.0",
         "symfony/browser-kit": "7.0.*",
         "symfony/css-selector": "7.0.*",
         "symfony/debug-bundle": "7.0.*",
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^7.0",
         "symfony/stopwatch": "7.0.*",
-        "symfony/web-profiler-bundle": "7.0.*"
+        "symfony/web-profiler-bundle": "7.0.*",
+        "symplify/easy-coding-standard": "^12.1"
     }
 }
