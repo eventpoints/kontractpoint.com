@@ -25,7 +25,7 @@ class CustomEnumType extends AbstractType
                 }
 
                 return static function (?\BackedEnum $choice): ?string {
-                    if ($choice === null) {
+                    if (! $choice instanceof \BackedEnum) {
                         return null;
                     }
 

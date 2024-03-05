@@ -19,7 +19,7 @@ class SelectionGroupType extends AbstractType
             'searchable' => true,
             'multiple' => true,
             'expanded' => true,
-            'choice_attr' => fn ($choice, $key, $value) => [
+            'choice_attr' => fn ($choice, $key, $value): array => [
                 'class' => 'custom-checkbox',
             ],
         ]);

@@ -6,3 +6,9 @@ parameters:
         - public/
         - src/
         - tests/
+
+    checkGenericClassInNonGenericObjectType: false
+
+
+    ignoreErrors:
+        - '#\$id is never written, only read#'

@@ -8,7 +8,6 @@ use App\Repository\EmailRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -32,16 +31,11 @@ class Email implements \Stringable
     #[ORM\JoinColumn(nullable: true)]
     private ?User $owner = null;
 
-    /**
-     * @param string|null $address
-     * @param User|null $owner
-     */
     public function __construct(null|string $address = null, null|User $owner = null)
     {
         $this->address = $address;
         $this->owner = $owner;
     }
-
 
     public function __toString(): string
     {

@@ -37,11 +37,11 @@ class Business
     private ?User $owner = null;
 
     public function __construct(
-         null|string $name = null,
-         null|User $owner = null,
-         null|string $registrationNumber = null,
-         null|BusinessVariantEnum $variant = null,
-         null|string $tagline = null
+        null|string $name = null,
+        null|User $owner = null,
+        null|string $registrationNumber = null,
+        null|BusinessVariantEnum $variant = null,
+        null|string $tagline = null
     )
     {
         $this->name = $name;
@@ -51,7 +51,6 @@ class Business
         $this->tagline = $tagline;
         $this->createdAt = new DateTimeImmutable();
     }
-
 
     public function getId(): null|Uuid
     {

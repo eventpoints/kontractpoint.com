@@ -7,7 +7,6 @@ namespace App\Controller\Controller\User;
 use App\Entity\Email;
 use App\Entity\User;
 use App\Enum\FlashEnum;
-use App\Factory\EmailFactory;
 use App\Form\Form\DefaultEmailFormType;
 use App\Form\Form\EmailAddressFormType;
 use App\Repository\EmailRepository;
@@ -23,9 +22,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class EmailController extends AbstractController
 {
     public function __construct(
-        private readonly UserRepository         $userRepository,
-        private readonly TranslatorInterface    $translator,
-        private readonly EmailRepository        $emailRepository,
+        private readonly UserRepository $userRepository,
+        private readonly TranslatorInterface $translator,
+        private readonly EmailRepository $emailRepository,
         private readonly EntityManagerInterface $entityManager
     )
     {

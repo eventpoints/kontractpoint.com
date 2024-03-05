@@ -19,7 +19,7 @@ class BusinessFormType extends AbstractType
             ->add('registrationNumber', TextType::class)
             ->add('variant', EnumType::class, [
                 'class' => BusinessVariantEnum::class,
-                'choice_label' => 'value'
+                'choice_label' => 'value',
             ])
             ->add('tagline', TextType::class);
     }

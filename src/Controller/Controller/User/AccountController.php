@@ -24,10 +24,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class AccountController extends AbstractController
 {
     public function __construct(
-        private readonly UserRepository              $userRepository,
+        private readonly UserRepository $userRepository,
         private readonly UserPasswordHasherInterface $hasher,
-        private readonly ImageService                $imageUploadService,
-        private readonly TranslatorInterface         $translator,
+        private readonly ImageService $imageUploadService,
+        private readonly TranslatorInterface $translator,
     ) {
     }
 

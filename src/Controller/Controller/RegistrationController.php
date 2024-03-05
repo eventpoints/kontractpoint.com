@@ -18,8 +18,6 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
-
-
     public function __construct(
         private readonly EmailRepository $emailRepository
     )
@@ -40,20 +38,17 @@ class RegistrationController extends AbstractController
                 'address' => $emailAddress,
             ]);
 
-            if (!$email instanceof Email) {
+            if (! $email instanceof Email) {
                 $email = new Email(address: $emailAddress, owner: $user);
                 $user->setEmail($email);
                 $email->setOwner($user);
                 $entityManager->persist($email);
+            } elseif ($email->getOwner() instanceof User) {
+                $form->addError(new FormError(Email::DUPLICATE_EMAIL_ADDRESS));
             } else {
-                if ($email->getOwner() instanceof User) {
-                    $form->addError(new FormError(Email::DUPLICATE_EMAIL_ADDRESS));
-                } else {
-                    $user->setEmail($email);
-                    $email->setOwner($user);
-                }
+                $user->setEmail($email);
+                $email->setOwner($user);
             }
-
 
             // encode the plain password
             $user->setPassword(

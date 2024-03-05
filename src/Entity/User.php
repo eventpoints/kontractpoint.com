@@ -59,7 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private null|DateTimeImmutable $updatedAt = null;
 
-    #[ORM\Column(type: Types::TEXT,nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $avatar = null;
 
     #[ORM\Column(length: 2, nullable: true)]
@@ -252,7 +252,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function addBusiness(Business $business): static
     {
-        if (!$this->businesses->contains($business)) {
+        if (! $this->businesses->contains($business)) {
             $this->businesses->add($business);
             $business->setOwner($this);
         }
@@ -262,11 +262,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeBusiness(Business $business): static
     {
-        if ($this->businesses->removeElement($business)) {
-            // set the owning side to null (unless already changed)
-            if ($business->getOwner() === $this) {
-                $business->setOwner(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->businesses->removeElement($business) && $business->getOwner() === $this) {
+            $business->setOwner(null);
         }
 
         return $this;

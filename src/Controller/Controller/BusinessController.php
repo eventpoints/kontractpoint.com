@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
-
 #[Route(path: '/business')]
 class BusinessController extends AbstractController
 {
@@ -24,13 +23,10 @@ class BusinessController extends AbstractController
         $businessForm->handleRequest($request);
         if ($businessForm->isSubmitted() && $businessForm->isValid()) {
 
-
         }
 
-
-        return $this->render('business/create.html.twig',[
-            'businessForm' => $businessForm
+        return $this->render('business/create.html.twig', [
+            'businessForm' => $businessForm,
         ]);
     }
-
 }
