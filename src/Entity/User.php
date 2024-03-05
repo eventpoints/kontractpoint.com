@@ -3,20 +3,25 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    #[ORM\CustomIdGenerator(UuidGenerator::class)]
+    private Uuid|null $id = null;
 
     #[ORM\OneToOne]
     private ?Email $email = null;
@@ -48,13 +53,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $lastName = null;
 
+    #[ORM\OneToMany(targetEntity: Business::class, mappedBy: 'owner')]
+    private Collection $businesses;
+
+    #[ORM\Column(nullable: true)]
+    private null|DateTimeImmutable $updatedAt = null;
+
+    #[ORM\Column(type: Types::TEXT,nullable: true)]
+    private ?string $avatar = null;
+
+    #[ORM\Column(length: 2, nullable: true)]
+    private ?string $originCountry = null;
+
+    #[ORM\Column(length: 2, nullable: true)]
+    private ?string $currentCountry = null;
+
     public function __construct()
     {
         $this->phoneNumbers = new ArrayCollection();
         $this->emails = new ArrayCollection();
+        $this->businesses = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): null|Uuid
     {
         return $this->id;
     }
@@ -217,6 +238,84 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastName(string $lastName): static
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Business>
+     */
+    public function getBusinesses(): Collection
+    {
+        return $this->businesses;
+    }
+
+    public function addBusiness(Business $business): static
+    {
+        if (!$this->businesses->contains($business)) {
+            $this->businesses->add($business);
+            $business->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBusiness(Business $business): static
+    {
+        if ($this->businesses->removeElement($business)) {
+            // set the owning side to null (unless already changed)
+            if ($business->getOwner() === $this) {
+                $business->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): null|DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(null|DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(string $avatar): static
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function getOriginCountry(): ?string
+    {
+        return $this->originCountry;
+    }
+
+    public function setOriginCountry(?string $originCountry): static
+    {
+        $this->originCountry = $originCountry;
+
+        return $this;
+    }
+
+    public function getCurrentCountry(): ?string
+    {
+        return $this->currentCountry;
+    }
+
+    public function setCurrentCountry(?string $currentCountry): static
+    {
+        $this->currentCountry = $currentCountry;
 
         return $this;
     }

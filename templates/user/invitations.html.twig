@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center mt-3">
+            <div class="col-12 col-md-4">
+                <div class="card">
+                    {{ include('partials/_account-navbar.html.twig') }}
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="row justify-content-start my-3">
+                    <div class="fs-3 fw-bold text-end">{{ 'invitations'|trans|upper }}</div>
+                    <hr/>
+                    <div class="col-12">
+                        <div class="card mb-3">
+                            <div class="list-group list-group-flush">
+                                {% for invitation in eventInvitations %}
+                                    {{ component('event_invitation_response_form', {
+                                        eventInvitation:  invitation
+                                    }) }}
+                                {% else %}
+                                    <div class="list-group-item text-center text-muted fw-bold">{{ 'no-invitations-found'|trans|upper }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -22,7 +22,6 @@ class Email implements \Stringable
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\Column(type: 'uuid', unique: true)]
     #[ORM\CustomIdGenerator(UuidGenerator::class)]
-    #[Groups(['user_contact'])]
     private Uuid $id;
 
     #[ORM\Column(length: 180, unique: true)]
@@ -32,6 +31,17 @@ class Email implements \Stringable
     #[ORM\ManyToOne(inversedBy: 'emails')]
     #[ORM\JoinColumn(nullable: true)]
     private ?User $owner = null;
+
+    /**
+     * @param string|null $address
+     * @param User|null $owner
+     */
+    public function __construct(null|string $address = null, null|User $owner = null)
+    {
+        $this->address = $address;
+        $this->owner = $owner;
+    }
+
 
     public function __toString(): string
     {

@@ -15,8 +15,8 @@ return ECSConfig::configure()
     ])
     ->withPreparedSets(
         arrays: true,
-        namespaces: true,
-        spaces: true,
-        docblocks: true,
         comments: true,
+        docblocks: true,
+        spaces: true,
+        namespaces: true,
     );

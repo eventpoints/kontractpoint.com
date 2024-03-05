@@ -32,8 +32,11 @@ class PhoneNumber
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private CarbonImmutable|null $createdAt = null;
 
-    public function __construct()
+    public function __construct(
+        null|User $owner = null
+    )
     {
+        $this->owner = $owner;
         $this->createdAt = new CarbonImmutable();
     }
 
