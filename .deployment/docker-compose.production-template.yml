@@ -77,6 +77,14 @@ services:
     networks:
       - internal
 
+  asset-compile:
+    image: ghcr.io/eventpoints/kontractpoint.com-php:main
+    command: sh -c "bin/console tailwind:build --minify && bin/console asset-map:compile"
+    depends_on:
+      - php
+    networks:
+      - internal
+
   adminer:
     image: adminer:4.8.0
     restart: unless-stopped
