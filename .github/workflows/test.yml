@@ -29,8 +29,8 @@ jobs:
             extensions: mbstring, uuid # needed by phpunit
 
       -   run: composer install --dev --no-progress
-      -   run: php bin/console asset-map:compile
       -   run: php bin/console tailwind:build --minify
+      -   run: php bin/console asset-map:compile
       -   run: vendor/bin/phpunit
 
 
