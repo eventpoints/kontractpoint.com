@@ -15,7 +15,13 @@ COPY composer.json composer.lock symfony.lock ./
 
 RUN composer install --no-dev --prefer-dist --no-interaction --no-scripts
 
+# Install npm packages
+COPY importmap.php ./
+# Production yarn build
 COPY ./assets ./assets
+
+RUN php bin/console importmap:install
+RUN php bin/console tailwind:build
 
 COPY . .
 
