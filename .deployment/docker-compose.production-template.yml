@@ -72,7 +72,7 @@ services:
       - .:/app:cached
     working_dir: /app
     entrypoint: [ "" ]
-    command: "bash -c 'bin/console import:compile'"
+    command: "bash -c 'bin/console asset-map:compile'"
 
   tailwind-build:
     image: ghcr.io/eventpoints/php:main
