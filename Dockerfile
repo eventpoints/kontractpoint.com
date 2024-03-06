@@ -13,15 +13,16 @@ RUN mkdir -p var/cache var/log
 # Intentionally split into multiple steps to leverage docker layer caching
 COPY composer.json composer.lock symfony.lock ./
 
-RUN bin/console tailwind:build --minify && \
-    bin/console asset-map:compile && \
-    composer install --no-dev --no-interaction --classmap-authoritative && \
-    composer symfony:dump-env prod
+RUN composer install --no-dev --prefer-dist --no-interaction --no-scripts
 
 # Install npm packages
-COPY importmap.php ./
+COPY package.json package-lock.json webpack.config.js ./
+RUN npm install
 
+# Production yarn build
 COPY ./assets ./assets
+
+RUN npm run build
 
 COPY . .
 
