@@ -13,7 +13,7 @@ volumes:
 
 services:
   php:
-    image: ghcr.io/eventpoints/eventpoint.app-php:main
+    image: ghcr.io/eventpoints/kontractpoint.com-php:main
     volumes:
       - php_socket:/var/run/php
       - ./php/php.ini:/usr/local/etc/php/php.ini
@@ -41,7 +41,7 @@ services:
       - internal
 
   caddy:
-    image: ghcr.io/eventpoints/eventpoint.app-caddy:main
+    image: ghcr.io/eventpoints/kontractpoint.com-caddy:main
     depends_on:
       - php
     restart: unless-stopped
@@ -58,9 +58,9 @@ services:
       - "80"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.eventpoint.rule=Host(`kontractpoint.com`, `www.kontractpoint.com`)"
-      - "traefik.http.routers.eventpoint.tls=true"
-      - "traefik.http.routers.eventpoint.tls.certresolver=le"
+      - "traefik.http.routers.kontractpoint.rule=Host(`kontractpoint.com`, `www.kontractpoint.com`)"
+      - "traefik.http.routers.kontractpoint.tls=true"
+      - "traefik.http.routers.kontractpoint.tls.certresolver=le"
     networks:
       - traefik
       - internal
@@ -86,9 +86,9 @@ services:
       - "8080"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.eventpoint-adminer.rule=Host(`adminer.kontractpoint.com`)"
-      - "traefik.http.routers.eventpoint-adminer.tls=true"
-      - "traefik.http.routers.eventpoint-adminer.tls.certresolver=le"
+      - "traefik.http.routers.kontractpoint-adminer.rule=Host(`adminer.kontractpoint.com`)"
+      - "traefik.http.routers.kontractpoint-adminer.tls=true"
+      - "traefik.http.routers.kontractpoint-adminer.tls.certresolver=le"
     networks:
       - internal
       - traefik
