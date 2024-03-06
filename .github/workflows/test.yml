@@ -8,14 +8,14 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     env:
-        DATABASE_URL: postgresql://eventpoint:eventpoint@127.0.0.1:5432/eventpoint?serverVersion=13&charset=utf8
+        DATABASE_URL: postgresql://kontractpoint:kontractpoint@127.0.0.1:5432/kontractpoint?serverVersion=13&charset=utf8
 
     services:
       db:
           image: postgres:13
           env:
-              POSTGRES_USER: eventpoint
-              POSTGRES_PASSWORD: eventpoint
+              POSTGRES_USER: kontractpoint
+              POSTGRES_PASSWORD: kontractpoint
           options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
           ports:
               - 5432:5432
@@ -29,6 +29,7 @@ jobs:
             extensions: mbstring, uuid # needed by phpunit
 
       -   run: composer install --dev --no-progress
+      -   run: php bin/console asset-map:install
       -   run: php bin/console tailwind:build --minify
       -   run: php bin/console asset-map:compile
       -   run: vendor/bin/phpunit

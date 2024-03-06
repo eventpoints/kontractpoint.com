@@ -65,6 +65,24 @@ services:
       - traefik
       - internal
 
+  asset-mapper-compile:
+    image: ghcr.io/eventpoints/php:main
+    platform: linux/amd64
+    volumes:
+      - .:/app:cached
+    working_dir: /app
+    entrypoint: [ "" ]
+    command: "bash -c 'bin/console asset-map:compile'"
+
+  tailwind-build:
+    image: ghcr.io/eventpoints/php:main
+    platform: linux/amd64
+    volumes:
+      - .:/app:cached
+    working_dir: /app
+    entrypoint: [ "" ]
+    command: "bash -c 'bin/console tailwind:build --minify'"
+
   database:
     image: postgres:13
     restart: unless-stopped
