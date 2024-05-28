@@ -8,7 +8,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('framework', [
         'asset_mapper' => [
             'paths' => [
-                'public/assets/',
+                'assets/',
             ],
         ],
     ]);
